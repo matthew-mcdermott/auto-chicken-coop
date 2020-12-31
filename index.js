@@ -1,4 +1,5 @@
 import "dotenv/config"
-import { door } from "./src/gpios"
+import { doorUp, doorDown } from "./src/handlers"
 
-door.digitalWrite(1);
+doorUp();
+// doorDown();
