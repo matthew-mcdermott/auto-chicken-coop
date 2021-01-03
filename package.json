@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "common-tags": "^1.8.0",
     "dotenv": "^8.2.0",
     "pigpio": "^3.2.4"
   },

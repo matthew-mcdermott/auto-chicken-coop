@@ -1,5 +1,4 @@
 import "dotenv/config"
-import { doorUp, doorDown } from "./src/handlers"
+import { startDoorControl } from "./src/handlers"
 
-doorUp();
-// doorDown();
+startDoorControl();
