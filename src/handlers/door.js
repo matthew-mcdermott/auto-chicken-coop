@@ -33,8 +33,6 @@ export async function startDoorControl() {
         }
 
     }, process.env.CHECK_INTERVAL_MINS*MS_IN_A_MIN);
-    // calculate ms until door open and ms until door close based on sunrise and sunset (ignore negative times.)
-    // settimeouts to schedule call for door up and door down for the day.
 }
 
 async function setDoorTimesForToday() {
@@ -55,10 +53,14 @@ async function setDoorTimesForTomorrow() {
 
 function resetDoorTimeouts() {
     clearTimeouts();
-    const msTilDoorUp = utils.calculateMsToIsoDate(doorUpTime)
-    const msTilDoorDown = utils.calculateMsToIsoDate(doorDownTime)
-    doorUpTimeout = setTimeout(utils.moveDoorUp, msTilDoorUp);
-    doorDownTimeout = setTimeout(utils.moveDoorDown, msTilDoorDown);
+    const msTilDoorUp = utils.calculateMsToIsoDate(doorUpTime);
+    const msTilDoorDown = utils.calculateMsToIsoDate(doorDownTime);
+    if (msTilDoorUp > 0) {
+        doorUpTimeout = setTimeout(utils.moveDoorUp, msTilDoorUp);
+    }
+    if (msTilDoorDown > 0) {
+        doorDownTimeout = setTimeout(utils.moveDoorDown, msTilDoorDown);
+    }
 }
 
 function clearTimeouts() {
