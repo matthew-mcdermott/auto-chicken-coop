@@ -12,6 +12,8 @@ let doorDownTimeout = null;
 let checkInterval = null;
 
 export async function startDoorControl() {
+    console.log(`Initializing door state to ${(process.env.INITIAL_STATE_DOOR_UP.toLowerCase() === "yes") ? 'up' : 'down'}.`);
+    await initializeDoorState(process.env.INITIAL_STATE_DOOR_UP);
     console.log(`Fetching sun cycle times and starting timeouts for first run.`);
     await setDoorTimesForToday();
     resetDoorTimeouts();
@@ -33,6 +35,15 @@ export async function startDoorControl() {
         }
 
     }, process.env.CHECK_INTERVAL_MINS*MS_IN_A_MIN);
+}
+
+async function initializeDoorState(shouldDoorStartUp) {
+    if (shouldDoorStartUp.toLowerCase() === "yes") {
+        utils.moveDoorUp();
+        return;
+    }
+    utils.moveDoorDown();
+    return;
 }
 
 async function setDoorTimesForToday() {
