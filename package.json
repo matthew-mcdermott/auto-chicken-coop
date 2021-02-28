@@ -4,13 +4,19 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node index.js"
+    "start": "babel-node src/index.js",
+    "build": "babel -d ./build ./src",
+    "prebuild": "rm -rf build/*",
+    "start:prod": "NODE_ENV=production node ./build/index.js",
+    "prestart:prod": "yarn build"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "axios": "^0.21.0",
     "common-tags": "^1.8.0",
     "dotenv": "^8.2.0",
-    "pigpio": "^3.2.4"
+    "pigpio": "^3.2.4",
+    "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
